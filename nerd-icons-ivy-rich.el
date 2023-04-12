@@ -610,7 +610,7 @@ This value is adjusted depending on the `window-width'."
       (nerd-icons-ivy-rich-process-buffer-name (:width 25 :face nerd-icons-ivy-rich-process-buffer-face))
       (nerd-icons-ivy-rich-process-tty-name (:width 12 :face nerd-icons-ivy-rich-process-tty-face))
       (nerd-icons-ivy-rich-process-thread (:width 12 :face nerd-icons-ivy-rich-process-thread-face))
-      (nerd-icons-ivy-rich-process-command (:face nerd-icons-ivy-rich-process-command-face)))
+      (nerd-icons-ivy-rich-process-command (:width 0.4 :face nerd-icons-ivy-rich-process-command-face)))
      :delimiter " ")
     counsel-projectile-switch-project
     (:columns
@@ -1836,27 +1836,27 @@ Support`counsel-ack', `counsel-ag', `counsel-pt' and `counsel-rg', etc."
 (defun nerd-icons-ivy-rich-keybinding-icon (_cand)
   "Display the keybindings icon in `ivy-rich'."
   (nerd-icons-ivy-rich-icon
-   (nerd-icons-faicon "nf-fa-keyboard-o" :face 'nerd-icons-lsilver)))
+   (nerd-icons-faicon "nf-fa-keyboard_o" :face 'nerd-icons-lsilver)))
 
 (defun nerd-icons-ivy-rich-library-icon (_cand)
   "Display the library icon in `ivy-rich'."
   (nerd-icons-ivy-rich-icon
-   (nerd-icons-codicon "nf-cod-symbol_namespace" :face 'nerd-icons-lblue)))
+   (nerd-icons-faicon "nf-fa-archive" :face 'nerd-icons-silver)))
 
 (defun nerd-icons-ivy-rich-package-icon (_cand)
   "Display the package icon in `ivy-rich'."
   (nerd-icons-ivy-rich-icon
-   (nerd-icons-codicon "nf-cod-archive" :face 'nerd-icons-silver)))
+   (nerd-icons-faicon "nf-fa-archive" :face 'nerd-icons-silver)))
 
 (defun nerd-icons-ivy-rich-font-icon (_cand)
   "Display the font icon in `ivy-rich'."
   (nerd-icons-ivy-rich-icon
-   (nerd-icons-sucicon "nf-seti-font" :face 'nerd-icons-lblue)))
+   (nerd-icons-sucicon "nf-seti-font" :face 'nerd-icons-blue)))
 
 (defun nerd-icons-ivy-rich-world-clock-icon (_cand)
   "Display the world clock icon in `ivy-rich'."
   (nerd-icons-ivy-rich-icon
-   (nerd-icons-faicon "nf-fa-globe" :face 'nerd-icons-lblue)))
+   (nerd-icons-codicon "nf-cod-globe" :face 'nerd-icons-blue)))
 
 (defun nerd-icons-ivy-rich-tramp-icon (_cand)
   "Display the tramp icon in `ivy-rich'."
@@ -1871,7 +1871,7 @@ Support`counsel-ack', `counsel-ag', `counsel-pt' and `counsel-rg', etc."
 (defun nerd-icons-ivy-rich-process-icon (_cand)
   "Display the process icon in `ivy-rich'."
   (nerd-icons-ivy-rich-icon
-   (nerd-icons-codicon "nf-cod-server_process" :face 'nerd-icons-lblue)))
+   (nerd-icons-codicon "nf-cod-server_process" :face 'nerd-icons-blue)))
 
 (defun nerd-icons-ivy-rich-imenu-icon (cand)
   "Display the imenu icon for CAND in `ivy-rich'."
