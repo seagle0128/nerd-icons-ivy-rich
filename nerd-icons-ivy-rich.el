@@ -1075,6 +1075,33 @@ This value is adjusted depending on the `window-width'."
       (nerd-icons-ivy-rich-project-file-modification-time (:face nerd-icons-ivy-rich-time-face)))
      :delimiter " ")
 
+    magit-find-file
+    (:columns
+     ((nerd-icons-ivy-rich-magit-file-icon)
+      (nerd-icons-ivy-rich-file-name (:width 0.4))
+      (nerd-icons-ivy-rich-file-id (:width 15 :face nerd-icons-ivy-rich-file-owner-face :align right))
+      (nerd-icons-ivy-rich-file-modes (:width 12))
+      (nerd-icons-ivy-rich-file-size (:width 7 :face nerd-icons-ivy-rich-size-face))
+      (nerd-icons-ivy-rich-file-modification-time (:face nerd-icons-ivy-rich-time-face)))
+     :delimiter " ")
+    magit-find-file-other-frame
+    (:columns
+     ((nerd-icons-ivy-rich-magit-file-icon)
+      (nerd-icons-ivy-rich-file-name (:width 0.4))
+      (nerd-icons-ivy-rich-file-id (:width 15 :face nerd-icons-ivy-rich-file-owner-face :align right))
+      (nerd-icons-ivy-rich-file-modes (:width 12))
+      (nerd-icons-ivy-rich-file-size (:width 7 :face nerd-icons-ivy-rich-size-face))
+      (nerd-icons-ivy-rich-file-modification-time (:face nerd-icons-ivy-rich-time-face)))
+     :delimiter " ")
+    magit-find-file-other-window
+    (:columns
+     ((nerd-icons-ivy-rich-magit-file-icon)
+      (nerd-icons-ivy-rich-file-name (:width 0.4))
+      (nerd-icons-ivy-rich-file-id (:width 15 :face nerd-icons-ivy-rich-file-owner-face :align right))
+      (nerd-icons-ivy-rich-file-modes (:width 12))
+      (nerd-icons-ivy-rich-file-size (:width 7 :face nerd-icons-ivy-rich-size-face))
+      (nerd-icons-ivy-rich-file-modification-time (:face nerd-icons-ivy-rich-time-face)))
+     :delimiter " ")
     ivy-magit-todos
     (:columns
      ((nerd-icons-ivy-rich-magit-todos-icon)
@@ -1733,6 +1760,13 @@ Support`counsel-ack', `counsel-ag', `counsel-pt' and `counsel-rg', etc."
      (if (or (null icon) (symbolp icon))
          (nerd-icons-faicon "nf-fa-file_o" :face 'nerd-icons-dsilver)
        (propertize icon 'display '(raise 0.0))))))
+
+(defun nerd-icons-ivy-rich-magit-file-icon (cand)
+  "Display file icon for CAND."
+  (if (string-suffix-p "Find file from revision: " ivy--prompt)
+      (nerd-icons-ivy-rich-icon
+       (nerd-icons-octicon "nf-oct-git_branch" :face 'nerd-icons-green))
+    (nerd-icons-ivy-rich-file-icon cand)))
 
 (defun nerd-icons-ivy-rich-magit-todos-icon (cand)
   "Display file icon for CAND in `magit-todos'."
