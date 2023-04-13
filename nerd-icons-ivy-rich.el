@@ -1764,8 +1764,7 @@ Support`counsel-ack', `counsel-ag', `counsel-pt' and `counsel-rg', etc."
 (defun nerd-icons-ivy-rich-magit-file-icon (cand)
   "Display file icon for CAND."
   (if (string-suffix-p "Find file from revision: " ivy--prompt)
-      (nerd-icons-ivy-rich-icon
-       (nerd-icons-octicon "nf-oct-git_branch" :face 'nerd-icons-green))
+      (nerd-icons-ivy-rich-git-branch-icon cand)
     (nerd-icons-ivy-rich-file-icon cand)))
 
 (defun nerd-icons-ivy-rich-magit-todos-icon (cand)
