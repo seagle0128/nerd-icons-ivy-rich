@@ -577,7 +577,7 @@ This value is adjusted depending on the `window-width'."
      :delimiter " ")
     counsel-git-checkout
     (:columns
-     ((nerd-icons-ivy-rich-git-branch-icon)
+     ((nerd-icons-ivy-rich-git-commit-icon)
       (ivy-rich-candidate))
      :delimiter " ")
     counsel-list-processes
@@ -1877,6 +1877,11 @@ Support`counsel-ack', `counsel-ag', `counsel-pt' and `counsel-rg', etc."
   "Display the git branch icon."
   (nerd-icons-ivy-rich-icon
    (nerd-icons-octicon "nf-oct-git_branch" :face 'nerd-icons-green)))
+
+(defun nerd-icons-ivy-rich-git-commit-icon (_cand)
+  "Display the git commit icon."
+  (nerd-icons-ivy-rich-icon
+   (nerd-icons-octicon "nf-oct-git_commit" :face 'nerd-icons-green)))
 
 (defun nerd-icons-ivy-rich-process-icon (_cand)
   "Display the process icon."
