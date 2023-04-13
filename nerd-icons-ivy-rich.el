@@ -5,7 +5,7 @@
 ;; Author: Vincent Zhang <seagle0128@gmail.com>
 ;; Homepage: https://github.com/seagle0128/nerd-icons-ivy-rich
 ;; Version: 1.0.0
-;; Package-Requires: ((emacs "25.1") (ivy-rich "0.1.0") (nerd-icons "0.0.1"))
+;; Package-Requires: ((emacs "26.1") (ivy-rich "0.1.0") (nerd-icons "0.0.1"))
 ;; Keywords: convenience, icons, ivy
 
 ;; This file is not part of GNU Emacs.
@@ -66,27 +66,6 @@
 (declare-function package--from-builtin "package")
 (declare-function package-desc-status "package")
 (declare-function projectile-project-root "ext:projectile")
-
-;; Compatibility
-(unless (fboundp #'file-attribute-user-id)
-  (defsubst file-attribute-user-id (attributes)
-    (nth 2 attributes)))
-
-(unless (fboundp #'file-attribute-group-id)
-  (defsubst file-attribute-group-id (attributes)
-    (nth 3 attributes)))
-
-(unless (fboundp #'file-attribute-modification-time)
-  (defsubst file-attribute-modification-time (attributes)
-    (nth 5 attributes)))
-
-(unless (fboundp #'file-attribute-size)
-  (defsubst file-attribute-size (attributes)
-    (nth 7 attributes)))
-
-(unless (fboundp #'file-attribute-modes)
-  (defsubst file-attribute-modes (attributes)
-    (nth 8 attributes)))
 
 
 ;;
@@ -1171,7 +1150,7 @@ Return `default-directory' if no project was found."
   (expand-file-name cand (nerd-icons-ivy-rich--project-root)))
 
 (defun nerd-icons-ivy-rich-project-find-file-transformer (cand)
-  "Transform non-visited file names with `ivy-virtual' face."
+  "Transform non-visited file name of CAND with `ivy-virtual' face."
   (cond
    ((or (ivy--dirname-p cand)
         (file-directory-p (nerd-icons-ivy-rich--file-path cand)))
@@ -1209,7 +1188,7 @@ Return `default-directory' if no project was found."
             "")))))
 
 (defun nerd-icons-ivy-rich--file-id (path)
-  "Return file uid/gid for CAND."
+  "Return file uid/gid for PATH."
   (cond
    ((file-remote-p path) "")
    ((not (file-exists-p path)) "")
@@ -1624,27 +1603,25 @@ If the buffer is killed, return \"--\"."
 		  "--")))))
 
 (defun nerd-icons-ivy-rich-process-tty-name (cand)
-  "Return the name of the terminal process uses for CAND."
+  "Return the name of the terminal process use for CAND."
   (let ((p (get-process cand)))
     (when (processp p)
       (or (process-tty-name p) "--"))))
 
 (defun nerd-icons-ivy-rich-process-thread (cand)
   "Return process thread for CAND."
-  (if (> emacs-major-version 26)
-      (propertize
-       (format "%-12s"
-               (let ((p (get-process cand)))
-                 (when (processp p)
-                   (cond
-                    ((or
-                      (null (process-thread p))
-                      (not (fboundp 'thread-name))) "--")
-                    ((eq (process-thread p) main-thread) "Main")
-	                ((thread-name (process-thread p)))
-	                (t "--")))))
-       'face 'nerd-icons-ivy-rich-process-thread-face)
-    ""))
+  (propertize
+   (format "%-12s"
+           (let ((p (get-process cand)))
+             (when (processp p)
+               (cond
+                ((or
+                  (null (process-thread p))
+                  (not (fboundp 'thread-name))) "--")
+                ((eq (process-thread p) main-thread) "Main")
+	            ((thread-name (process-thread p)))
+	            (t "--")))))
+   'face 'nerd-icons-ivy-rich-process-thread-face))
 
 (defun nerd-icons-ivy-rich-process-command (cand)
   "Return process command for CAND."
@@ -1735,7 +1712,7 @@ Support`counsel-ack', `counsel-ag', `counsel-pt' and `counsel-rg', etc."
             icon)))
 
 (defun nerd-icons-ivy-rich-buffer-icon (cand)
-  "Display buffer icon for CAND in `ivy-rich'."
+  "Display buffer icon for CAND."
   (nerd-icons-ivy-rich-icon
    (let ((icon (with-current-buffer (get-buffer cand)
                  (if (eq major-mode 'dired-mode)
@@ -1746,7 +1723,7 @@ Support`counsel-ack', `counsel-ag', `counsel-pt' and `counsel-rg', etc."
        (propertize icon 'display '(raise 0.0))))))
 
 (defun nerd-icons-ivy-rich-file-icon (cand)
-  "Display file icon for CAND in `ivy-rich'."
+  "Display file icon for CAND."
   (nerd-icons-ivy-rich-icon
    (let ((icon (cond
                 ((ivy--dirname-p cand)
@@ -1758,55 +1735,55 @@ Support`counsel-ack', `counsel-ag', `counsel-pt' and `counsel-rg', etc."
        (propertize icon 'display '(raise 0.0))))))
 
 (defun nerd-icons-ivy-rich-magit-todos-icon (cand)
-  "Display file icon in `magit-todos'."
+  "Display file icon for CAND in `magit-todos'."
   (nerd-icons-ivy-rich-file-icon (nth 0 (split-string cand " "))))
 
 (defun nerd-icons-ivy-rich-dir-icon (_cand)
-  "Display project icon in `ivy-rich'."
+  "Display project icon for CAND."
   (nerd-icons-ivy-rich-icon
    (nerd-icons-octicon "nf-oct-file_directory" :face 'nerd-icons-silver)))
 
 (defun nerd-icons-ivy-rich-project-icon (_cand)
-  "Display project icon in `ivy-rich'."
+  "Display project icon for CAND."
   (nerd-icons-ivy-rich-icon
    (nerd-icons-octicon "nf-oct-repo" :face 'nerd-icons-silver)))
 
 (defun nerd-icons-ivy-rich-mode-icon (_cand)
-  "Display mode icon in `ivy-rich'."
+  "Display mode icon for CAND."
   (nerd-icons-ivy-rich-icon
    (nerd-icons-codicon "nf-cod-symbol_method" :face 'nerd-icons-blue)))
 
 (defun nerd-icons-ivy-rich-function-icon (cand)
-  "Display function icon in `ivy-rich'."
+  "Display function icon for CAND."
   (nerd-icons-ivy-rich-icon
    (if (commandp (intern cand))
        (nerd-icons-codicon "nf-cod-symbol_method" :face 'nerd-icons-blue)
      (nerd-icons-codicon "nf-cod-symbol_method" :face 'nerd-icons-purple))))
 
 (defun nerd-icons-ivy-rich-command-icon (_cand)
-  "Display command icon in `ivy-rich'."
+  "Display command icon for CAND."
   (nerd-icons-ivy-rich-icon
    (nerd-icons-codicon "nf-cod-symbol_method" :face 'nerd-icons-blue)))
 
 (defun nerd-icons-ivy-rich-history-icon (_cand)
-  "Display command icon in `ivy-rich'."
+  "Display command icon for CAND."
   (nerd-icons-ivy-rich-icon
    (nerd-icons-codicon "nf-cod-history" :face 'nerd-icons-lblue)))
 
 (defun nerd-icons-ivy-rich-variable-icon (cand)
-  "Display the variable icon in `ivy-rich'."
+  "Display the variable icon for CAND."
   (nerd-icons-ivy-rich-icon
    (if (custom-variable-p (intern cand))
        (nerd-icons-codicon "nf-cod-symbol_variable" :face 'nerd-icons-blue)
      (nerd-icons-codicon "nf-cod-symbol_variable" :face 'nerd-icons-lblue))))
 
 (defun nerd-icons-ivy-rich-face-icon (_cand)
-  "Display face icon in `ivy-rich'."
+  "Display face icon."
   (nerd-icons-ivy-rich-icon
    (nerd-icons-codicon "nf-cod-symbol_color" :face 'nerd-icons-blue)))
 
 (defun nerd-icons-ivy-rich-symbol-icon (cand)
-  "Display the symbol icon in `ivy-rich'."
+  "Display the symbol icon for CAND."
   (let ((sym (intern (nerd-icons-ivy-rich--counsel-imenu-symbol cand))))
     (cond
      ((string-match-p "Packages?[:)]" cand)
@@ -1822,59 +1799,59 @@ Support`counsel-ack', `counsel-ag', `counsel-pt' and `counsel-rg', etc."
          (nerd-icons-codicon "nf-cod-gear" :face 'nerd-icons-silver))))))
 
 (defun nerd-icons-ivy-rich-company-icon (cand)
-  "Display the symbol icon of company in `ivy-rich'."
+  "Display the symbol icon for CAND in company."
   (nerd-icons-ivy-rich-icon
    (if (fboundp 'company-box--get-icon)
        (company-box--get-icon cand)
      (nerd-icons-codicon "nf-cod-gear" :face 'nerd-icons-silver))))
 
 (defun nerd-icons-ivy-rich-theme-icon (_cand)
-  "Display the theme icon in `ivy-rich'."
+  "Display the theme icon."
   (nerd-icons-ivy-rich-icon
    (nerd-icons-codicon "nf-cod-symbol_color" :face 'nerd-icons-lcyan)))
 
 (defun nerd-icons-ivy-rich-keybinding-icon (_cand)
-  "Display the keybindings icon in `ivy-rich'."
+  "Display the keybindings icon."
   (nerd-icons-ivy-rich-icon
    (nerd-icons-faicon "nf-fa-keyboard_o" :face 'nerd-icons-lsilver)))
 
 (defun nerd-icons-ivy-rich-library-icon (_cand)
-  "Display the library icon in `ivy-rich'."
+  "Display the library icon."
   (nerd-icons-ivy-rich-icon
    (nerd-icons-faicon "nf-fa-archive" :face 'nerd-icons-silver)))
 
 (defun nerd-icons-ivy-rich-package-icon (_cand)
-  "Display the package icon in `ivy-rich'."
+  "Display the package icon."
   (nerd-icons-ivy-rich-icon
    (nerd-icons-faicon "nf-fa-archive" :face 'nerd-icons-silver)))
 
 (defun nerd-icons-ivy-rich-font-icon (_cand)
-  "Display the font icon in `ivy-rich'."
+  "Display the font icon."
   (nerd-icons-ivy-rich-icon
    (nerd-icons-sucicon "nf-seti-font" :face 'nerd-icons-blue)))
 
 (defun nerd-icons-ivy-rich-world-clock-icon (_cand)
-  "Display the world clock icon in `ivy-rich'."
+  "Display the world clock icon."
   (nerd-icons-ivy-rich-icon
    (nerd-icons-codicon "nf-cod-globe" :face 'nerd-icons-blue)))
 
 (defun nerd-icons-ivy-rich-tramp-icon (_cand)
-  "Display the tramp icon in `ivy-rich'."
+  "Display the tramp icon."
   (nerd-icons-ivy-rich-icon
    (nerd-icons-mdicon "remote")))
 
 (defun nerd-icons-ivy-rich-git-branch-icon (_cand)
-  "Display the git branch icon in `ivy-rich'."
+  "Display the git branch icon."
   (nerd-icons-ivy-rich-icon
    (nerd-icons-octicon "nf-oct-git_branch" :face 'nerd-icons-green)))
 
 (defun nerd-icons-ivy-rich-process-icon (_cand)
-  "Display the process icon in `ivy-rich'."
+  "Display the process icon."
   (nerd-icons-ivy-rich-icon
    (nerd-icons-codicon "nf-cod-server_process" :face 'nerd-icons-blue)))
 
 (defun nerd-icons-ivy-rich-imenu-icon (cand)
-  "Display the imenu icon for CAND in `ivy-rich'."
+  "Display the imenu icon for CAND."
   (if (derived-mode-p 'emacs-lisp-mode)
       (nerd-icons-ivy-rich-symbol-icon cand)
     (nerd-icons-ivy-rich-icon
@@ -1924,56 +1901,56 @@ Support`counsel-ack', `counsel-ag', `counsel-pt' and `counsel-rg', etc."
        (nerd-icons-icon-for-file (file-name-nondirectory file)))))))
 
 (defun nerd-icons-ivy-rich-group-settings-icon (_cand)
-  "Display group settings icon for CAND in `ivy-rich'."
+  "Display group settings icon for CAND."
   (nerd-icons-ivy-rich-icon
    (nerd-icons-codicon "nf-cod-settings" :face 'nerd-icons-lblue)))
 
 (defun nerd-icons-ivy-rich-variable-settings-icon (_cand)
-  "Display variable settings icon for CAND in `ivy-rich'."
+  "Display variable settings icon for CAND."
   (nerd-icons-ivy-rich-icon
    (nerd-icons-codicon "nf-cod-settings" :face 'nerd-icons-lgreen)))
 
 (defun nerd-icons-ivy-rich-charset-icon (_cand)
-  "Display charset icon for CAND in `ivy-rich'."
+  "Display charset icon for CAND."
   (nerd-icons-ivy-rich-icon
    (nerd-icons-faicon "nf-fa-table" :face 'nerd-icons-lblue)))
 
 (defun nerd-icons-ivy-rich-coding-system-icon (_cand)
-  "Display coding system icon for CAND in `ivy-rich'."
+  "Display coding system icon for CAND."
   (nerd-icons-ivy-rich-icon
    (nerd-icons-faicon "nf-fa-table" :face 'nerd-icons-purple)))
 
 (defun nerd-icons-ivy-rich-lang-icon (_cand)
-  "Display language icon in `ivy-rich'."
+  "Display language icon."
   (nerd-icons-ivy-rich-icon
    (nerd-icons-faicon "nf-fa-language" :face 'nerd-icons-lblue)))
 
 (defun nerd-icons-ivy-rich-input-method-icon (_cand)
-  "Display input method icon in `ivy-rich'."
+  "Display input method icon."
   (nerd-icons-ivy-rich-icon
    (nerd-icons-faicon "nf-fa-keyboard-o" :face 'nerd-icons-lblue)))
 
 (defun nerd-icons-ivy-rich-grep-file-icon (cand)
-  "Display file icon for CAND in `ivy-rich'.
+  "Display file icon for CAND.
 Support`counsel-ack', `counsel-ag', `counsel-pt' and `counsel-rg', etc."
   (when (or (string-match "\\(.+\\):\\([0-9]+\\):\\(.+\\)" cand)
             (string-match "\\(.+\\):\\(.+\\)(\\(.+\\))" cand))
     (nerd-icons-ivy-rich-file-icon (match-string 1 cand))))
 
 (defun nerd-icons-ivy-rich-link-icon (cand)
-  "Display link icon in `ivy-rich'."
+  "Display link icon for CAND."
   (nerd-icons-ivy-rich-icon
    (if (string-prefix-p "#" cand)
        (nerd-icons-mdicon "nf-md-anchor":face 'nerd-icons-green)
      (nerd-icons-mdicon "nf-md-link" :face 'nerd-icons-blue))))
 
 (defun nerd-icons-ivy-rich-key-icon (_cand)
-  "Display key icon in `ivy-rich'."
+  "Display key icon."
   (nerd-icons-ivy-rich-icon
    (nerd-icons-octicon "nf-oct-key")))
 
 (defun nerd-icons-ivy-rich-lsp-icon (_cand)
-  "Display lsp icon in `ivy-rich'."
+  "Display lsp icon."
   (nerd-icons-ivy-rich-icon
    (nerd-icons-codicon "nf-md-rocket_launch" :face 'nerd-icons-lgreen)))
 
