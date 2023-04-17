@@ -1,6 +1,6 @@
 # nerd-icons-ivy-rich
 
-[![Build Status](https://github.com/seagle0128/nerd-icons-ivy-rich/workflows/CI/badge.svg?branch=master)](https://github.com/seagle0128/nerd-icons-ivy-rich/actions)
+[![Build Status](https://github.com/seagle0128/nerd-icons-ivy-rich/workflows/CI/badge.svg)](https://github.com/seagle0128/nerd-icons-ivy-rich/actions)
 [![Release Tag](https://img.shields.io/github/tag/seagle0128/nerd-icons-ivy-rich.svg?label=Release)](https://github.com/seagle0128/nerd-icons-ivy-rich/releases)
 [![License](http://img.shields.io/:License-GPL3-blue.svg)](License)
 [![MELPA](https://melpa.org/packages/nerd-icons-ivy-rich-badge.svg)](https://melpa.org/#/nerd-icons-ivy-rich)
@@ -109,23 +109,11 @@ classes will be displayed. The details are below.
 
 ## Screenshots
 
-![ivy-switch-buffer](https://user-images.githubusercontent.com/140797/154795765-786a29c2-3dc6-4a81-9992-fcd7043ae1ab.png "ivy-switch-buffer")
+![image](https://user-images.githubusercontent.com/140797/232552947-32feac2a-5eaf-47bf-bf48-3a5ffca9bfc0.png)
 
-![counsel-find-file](https://user-images.githubusercontent.com/140797/154795929-0987d4fe-14d8-4866-bf98-1e95d5493014.png "counsel-find-file")
+![image](https://user-images.githubusercontent.com/140797/232553638-de27aeec-3c4a-421e-a6c1-888cf2d83fa3.png)
 
-![counsel-buffer-or-recentf](https://user-images.githubusercontent.com/140797/154795792-f95a119f-c313-4b1f-b32f-9e312bb2fa15.png "counsel-buffer-or-recentf")
-
-![counsel-M-x](https://user-images.githubusercontent.com/140797/154795826-0fb8f5ea-825a-4108-a565-daeb5a6e7e96.png "counsel-M-x")
-
-![counsel-describe-function](https://user-images.githubusercontent.com/140797/154796653-718aabfa-dca8-4478-afa1-6272f1399362.png "counsel-describe-function")
-
-![counsel-describe-variable](https://user-images.githubusercontent.com/140797/154796713-f2d11548-83bb-46d1-bb0b-a1b621cac5b7.png "counsel-describe-variable")
-
-![counsel-imenu](https://user-images.githubusercontent.com/140797/154795862-a56b92a4-be07-42d7-9fec-9392e87cb83c.png "counsel-imenu")
-
-![counsel-bookmark](https://user-images.githubusercontent.com/140797/154795890-3b86a6c6-850c-4153-afdd-748d503ff265.png "counsel-bookmark")
-
-And more...
+![image](https://user-images.githubusercontent.com/140797/232553261-33226017-a487-464e-ba73-227e2bd60159.png)
 
 ## Donate
 
