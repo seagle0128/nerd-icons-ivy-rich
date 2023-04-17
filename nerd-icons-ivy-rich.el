@@ -695,6 +695,20 @@ This value is adjusted depending on the `window-width'."
       (counsel-M-x-transformer (:width 0.3))
       (ivy-rich-counsel-function-docstring (:face nerd-icons-ivy-rich-doc-face))))
 
+    ;; Kill buffer
+    kill-buffer
+    (:columns
+     ((nerd-icons-ivy-rich-buffer-icon)
+      (ivy-switch-buffer-transformer (:width 0.3))
+      (ivy-rich-switch-buffer-size (:width 7 :face nerd-icons-ivy-rich-size-face))
+      (ivy-rich-switch-buffer-indicators (:width 4 :face nerd-icons-ivy-rich-indicator-face :align right))
+      (nerd-icons-ivy-rich-switch-buffer-major-mode (:width 18 :face nerd-icons-ivy-rich-major-mode-face))
+      (ivy-rich-switch-buffer-project (:width 0.12 :face nerd-icons-ivy-rich-project-face))
+      (ivy-rich-switch-buffer-path (:width (lambda (x) (ivy-rich-switch-buffer-shorten-path x (ivy-rich-minibuffer-width 0.3))) :face nerd-icons-ivy-rich-path-face)))
+     :predicate
+     (lambda (cand) (get-buffer cand))
+     :delimiter " ")
+
     ;; projectile
     projectile-completing-read
     (:columns
@@ -923,19 +937,6 @@ This value is adjusted depending on the `window-width'."
      (lambda (cand) (get-buffer cand))
      :delimiter " ")
 
-    nerd-icons-ivy-rich-kill-buffer
-    (:columns
-     ((nerd-icons-ivy-rich-buffer-icon)
-      (ivy-switch-buffer-transformer (:width 0.3))
-      (ivy-rich-switch-buffer-size (:width 7 :face nerd-icons-ivy-rich-size-face))
-      (ivy-rich-switch-buffer-indicators (:width 4 :face nerd-icons-ivy-rich-indicator-face :align right))
-      (nerd-icons-ivy-rich-switch-buffer-major-mode (:width 18 :face nerd-icons-ivy-rich-major-mode-face))
-      (ivy-rich-switch-buffer-project (:width 0.12 :face nerd-icons-ivy-rich-project-face))
-      (ivy-rich-switch-buffer-path (:width (lambda (x) (ivy-rich-switch-buffer-shorten-path x (ivy-rich-minibuffer-width 0.3))) :face nerd-icons-ivy-rich-path-face)))
-     :predicate
-     (lambda (cand) (get-buffer cand))
-     :delimiter " ")
-
     org-switchb
     (:columns
      ((nerd-icons-ivy-rich-buffer-icon)
@@ -1134,7 +1135,7 @@ See `ivy-rich-display-transformers-list' for details."
   (format-mode-line (ivy-rich--local-values cand 'mode-name)))
 
 ;; Support `kill-buffer'
-(defun nerd-icons-ivy-rich-kill-buffer (&optional buffer-or-name)
+(defun nerd-icons-ivy-rich-kill-buffer (fn &optional buffer-or-name)
   "Kill the buffer specified by BUFFER-OR-NAME."
   (interactive
    (list (completing-read (format "Kill buffer (default %s): " (buffer-name))
@@ -1143,7 +1144,7 @@ See `ivy-rich-display-transformers-list' for details."
                                   (buffer-list))
                           nil t nil nil
                           (buffer-name))))
-  (kill-buffer buffer-or-name))
+  (funcall fn buffer-or-name))
 
 (defun nerd-icons-ivy-rich--project-root ()
   "Get the path to the root of your project.
@@ -1242,7 +1243,7 @@ Return `default-directory' if no project was found."
    ((file-remote-p file) "")
    ((not (file-exists-p file)) "")
    (t (format-time-string
-       "%b %d %H:%M"
+       "%b %d %R"
        (file-attribute-modification-time (file-attributes file))))))
 
 ;; Support `counsel-find-file', `counsel-dired', etc.
@@ -1682,7 +1683,7 @@ If the buffer is killed, return \"--\"."
 				          (if speed
 					          (format " at %s b/s" speed)
 				            "")))))
-		  (mapconcat 'identity (process-command p) " "))))))
+		  (mapconcat #'identity (process-command p) " "))))))
 
 ;; Support `counsel-find-library' and `counsel-load-library'
 (defun nerd-icons-ivy-rich-library-transformer (cand)
@@ -2006,10 +2007,10 @@ Support`counsel-ack', `counsel-ag', `counsel-pt' and `counsel-rg', etc."
   :global t
   (if nerd-icons-ivy-rich-mode
       (progn
-        (global-set-key [remap kill-buffer] #'nerd-icons-ivy-rich-kill-buffer)
+        (advice-add #'kill-buffer :around #'nerd-icons-ivy-rich-kill-buffer)
         (setq ivy-rich-display-transformers-list nerd-icons-ivy-rich-display-transformers-list))
     (progn
-      (global-unset-key [remap kill-buffer])
+      (advice-remove #'kill-buffer #'nerd-icons-ivy-rich-kill-buffer)
       (setq ivy-rich-display-transformers-list nerd-icons-ivy-rich-display-transformers-old-list)))
   (ivy-rich-reload))
 
