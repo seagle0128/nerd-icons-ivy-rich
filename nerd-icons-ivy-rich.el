@@ -1780,7 +1780,7 @@ Support`counsel-ack', `counsel-ag', `counsel-pt' and `counsel-rg', etc."
 (defun nerd-icons-ivy-rich-project-icon (_cand)
   "Display project icon for CAND."
   (nerd-icons-ivy-rich-icon
-   (nerd-icons-octicon "nf-oct-repo" :face 'nerd-icons-silver)))
+   (nerd-icons-octicon "nf-oct-repo" :face 'nerd-icons-green)))
 
 (defun nerd-icons-ivy-rich-history-icon (_cand)
   "Display history icon for CAND."
