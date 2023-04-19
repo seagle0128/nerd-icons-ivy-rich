@@ -1782,6 +1782,11 @@ Support`counsel-ack', `counsel-ag', `counsel-pt' and `counsel-rg', etc."
   (nerd-icons-ivy-rich-icon
    (nerd-icons-octicon "nf-oct-repo" :face 'nerd-icons-silver)))
 
+(defun nerd-icons-ivy-rich-history-icon (_cand)
+  "Display history icon for CAND."
+  (nerd-icons-ivy-rich-icon
+   (nerd-icons-mdicon "nf-md-history" :face 'nerd-icons-lblue)))
+
 (defun nerd-icons-ivy-rich-mode-icon (_cand)
   "Display mode icon for CAND."
   (nerd-icons-ivy-rich-icon
@@ -1798,11 +1803,6 @@ Support`counsel-ack', `counsel-ag', `counsel-pt' and `counsel-rg', etc."
   "Display command icon for CAND."
   (nerd-icons-ivy-rich-icon
    (nerd-icons-codicon "nf-cod-symbol_method" :face 'nerd-icons-blue)))
-
-(defun nerd-icons-ivy-rich-history-icon (_cand)
-  "Display command icon for CAND."
-  (nerd-icons-ivy-rich-icon
-   (nerd-icons-codicon "nf-cod-history" :face 'nerd-icons-lblue)))
 
 (defun nerd-icons-ivy-rich-variable-icon (cand)
   "Display the variable icon for CAND."
