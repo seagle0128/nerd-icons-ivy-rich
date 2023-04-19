@@ -997,7 +997,7 @@ This value is adjusted depending on the `window-width'."
     describe-coding-system
     (:columns
      ((nerd-icons-ivy-rich-coding-system-icon)
-
+      (ivy-rich-candidate (:width 0.3))
       (nerd-icons-ivy-rich-coding-system-docstring (:face nerd-icons-ivy-rich-doc-face)))
      :delimiter " ")
 
