@@ -726,15 +726,10 @@ This value is adjusted depending on the `window-width'."
      ((nerd-icons-ivy-rich-function-icon)
       (counsel-M-x-transformer (:width 0.3))
       (ivy-rich-counsel-function-docstring (:face nerd-icons-ivy-rich-doc-face))))
-
     project-switch-project
     (:columns
-     ((nerd-icons-ivy-rich-file-icon)
-      (nerd-icons-ivy-rich-project-name (:width 0.4))
-      (nerd-icons-ivy-rich-project-file-id (:width 15 :face nerd-icons-ivy-rich-file-owner-face :align right))
-      (nerd-icons-ivy-rich-project-file-modes (:width 12))
-      (nerd-icons-ivy-rich-project-file-size (:width 7 :face nerd-icons-ivy-rich-size-face))
-      (nerd-icons-ivy-rich-project-file-modification-time (:face nerd-icons-ivy-rich-time-face)))
+     ((nerd-icons-ivy-rich-project-icon)
+      (nerd-icons-ivy-rich-project-name))
      :delimiter " ")
     project-find-file
     (:columns
@@ -754,19 +749,10 @@ This value is adjusted depending on the `window-width'."
       (nerd-icons-ivy-rich-project-file-size (:width 7 :face nerd-icons-ivy-rich-size-face))
       (nerd-icons-ivy-rich-project-file-modification-time (:face nerd-icons-ivy-rich-time-face)))
      :delimiter " ")
-    project-dired
+    project-find-dir
     (:columns
      ((nerd-icons-ivy-rich-file-icon)
-      (nerd-icons-ivy-rich-project-name (:width 0.4))
-      (nerd-icons-ivy-rich-project-file-id (:width 15 :face nerd-icons-ivy-rich-file-owner-face :align right))
-      (nerd-icons-ivy-rich-project-file-modes (:width 12))
-      (nerd-icons-ivy-rich-project-file-size (:width 7 :face nerd-icons-ivy-rich-size-face))
-      (nerd-icons-ivy-rich-project-file-modification-time (:face nerd-icons-ivy-rich-time-face)))
-     :delimiter " ")
-    project-vc-dir
-    (:columns
-     ((nerd-icons-ivy-rich-file-icon)
-      (nerd-icons-ivy-rich-project-name (:width 0.4))
+      (ivy-rich-candidate (:width 0.4))
       (nerd-icons-ivy-rich-project-file-id (:width 15 :face nerd-icons-ivy-rich-file-owner-face :align right))
       (nerd-icons-ivy-rich-project-file-modes (:width 12))
       (nerd-icons-ivy-rich-project-file-size (:width 7 :face nerd-icons-ivy-rich-size-face))
@@ -1069,11 +1055,7 @@ This value is adjusted depending on the `window-width'."
     lsp-ivy-workspace-folders-remove
     (:columns
      ((nerd-icons-ivy-rich-dir-icon)
-      (nerd-icons-ivy-rich-project-name (:width 0.4))
-      (nerd-icons-ivy-rich-project-file-id (:width 15 :face nerd-icons-ivy-rich-file-owner-face :align right))
-      (nerd-icons-ivy-rich-project-file-modes (:width 12))
-      (nerd-icons-ivy-rich-project-file-size (:width 7 :face nerd-icons-ivy-rich-size-face))
-      (nerd-icons-ivy-rich-project-file-modification-time (:face nerd-icons-ivy-rich-time-face)))
+      (ivy-rich-candidate))
      :delimiter " ")
 
     magit-find-file
@@ -1112,11 +1094,7 @@ This value is adjusted depending on the `window-width'."
     treemacs-projectile
     (:columns
      ((nerd-icons-ivy-rich-project-icon)
-      (nerd-icons-ivy-rich-project-name (:width 0.4))
-      (nerd-icons-ivy-rich-project-file-id (:width 15 :face nerd-icons-ivy-rich-file-owner-face :align right))
-      (nerd-icons-ivy-rich-project-file-modes (:width 12))
-      (nerd-icons-ivy-rich-project-file-size (:width 7 :face nerd-icons-ivy-rich-size-face))
-      (nerd-icons-ivy-rich-project-file-modification-time (:face nerd-icons-ivy-rich-time-face)))
+      (nerd-icons-ivy-rich-project-name))
      :delimiter " "))
   "Definitions for ivy-rich transformers.
 
@@ -1286,13 +1264,13 @@ Display the true name when the file is a symlink."
   "Return project name for CAND."
   (if (or (ivy--dirname-p cand)
           (file-directory-p (nerd-icons-ivy-rich--file-path cand)))
-      (propertize cand 'face 'ivy-subdir)
-    cand))
+      (propertize (abbreviate-file-name cand) 'face 'ivy-subdir)
+    (abbreviate-file-name cand)))
 
 (defun nerd-icons-ivy-rich-project-file-modes (cand)
-  "Return file modes for CAND."
-  (nerd-icons-ivy-rich--file-modes
-   (nerd-icons-ivy-rich--project-file-path cand)))
+"Return file modes for CAND."
+(nerd-icons-ivy-rich--file-modes
+ (nerd-icons-ivy-rich--project-file-path cand)))
 
 (defun nerd-icons-ivy-rich-project-file-id (cand)
   "Return file uid/gid for CAND."
