@@ -600,6 +600,12 @@ This value is adjusted depending on the `window-width'."
       (nerd-icons-ivy-rich-project-file-size (:width 7 :face nerd-icons-ivy-rich-size-face))
       (nerd-icons-ivy-rich-project-file-modification-time (:face nerd-icons-ivy-rich-time-face)))
      :delimiter " ")
+    counsel-projectile
+    (:columns
+     ((counsel-projectile-switch-to-buffer-transformer))
+     :predicate
+     (lambda (cand) (get-buffer cand))
+     :delimiter " ")
     counsel-projectile-switch-to-buffer
     (:columns
      ((counsel-projectile-switch-to-buffer-transformer))
