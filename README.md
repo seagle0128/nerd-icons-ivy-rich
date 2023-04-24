@@ -42,12 +42,9 @@ From melpa, `M-x package-install RET nerd-icons-ivy-rich RET`.
 ```emacs-lisp
 (use-package nerd-icons-ivy-rich
   :ensure t
-  :init (nerd-icons-ivy-rich-mode 1))
-
-(use-package ivy-rich
-  :ensure t
-  :init (ivy-rich-mode 1))
-
+  :init
+  (nerd-icons-ivy-rich-mode 1)
+  (ivy-rich-mode 1))
 ```
 
 _NOTE_:
