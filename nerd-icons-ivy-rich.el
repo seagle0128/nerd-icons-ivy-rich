@@ -4,7 +4,7 @@
 
 ;; Author: Vincent Zhang <seagle0128@gmail.com>
 ;; Homepage: https://github.com/seagle0128/nerd-icons-ivy-rich
-;; Version: 1.0.0
+;; Version: 1.0.1
 ;; Package-Requires: ((emacs "26.1") (ivy-rich "0.1.0") (nerd-icons "0.0.1"))
 ;; Keywords: convenience, icons, ivy
 
@@ -633,8 +633,8 @@ This value is adjusted depending on the `window-width'."
     counsel-imenu
     (:columns
      ((nerd-icons-ivy-rich-imenu-icon)
-      (ivy-rich-candidate)
-      (nerd-icons-ivy-rich-imenu-class (:face nerd-icons-ivy-rich-imenu-type-face))
+      (nerd-icons-ivy-rich-imenu-transformer (:width 0.3))
+      (nerd-icons-ivy-rich-imenu-class (:width 7 :face nerd-icons-ivy-rich-imenu-type-face))
       (nerd-icons-ivy-rich-imenu-docstring (:face nerd-icons-ivy-rich-imenu-doc-face)))
      :delimiter " ")
     counsel-company
@@ -1522,10 +1522,16 @@ t cl-type"
      (t ""))))
 
 ;; Support `counsel-imenu'
-(defun nerd-icons-ivy-rich--counsel-imenu-symbol (cand)
+(defun nerd-icons-ivy-rich--imenu-symbol (cand)
   "Return imenu symbol from CAND."
   (let ((str (split-string cand ": ")))
     (or (cadr str) (car str))))
+
+(defun nerd-icons-ivy-rich-imenu-transformer (cand)
+  "Transform imenu CAND."
+  (if nerd-icons-ivy-rich-icon
+      (nerd-icons-ivy-rich--imenu-symbol cand)
+    cand))
 
 (defun nerd-icons-ivy-rich-imenu-class (cand)
   "Return imenu's class characters for CAND.
@@ -1534,7 +1540,7 @@ Only available in `emacs-lisp-mode'."
   (if (derived-mode-p 'emacs-lisp-mode)
       (string-trim
        (nerd-icons-ivy-rich-symbol-class
-        (nerd-icons-ivy-rich--counsel-imenu-symbol cand)))
+        (nerd-icons-ivy-rich--imenu-symbol cand)))
     ""))
 
 (defun nerd-icons-ivy-rich-imenu-docstring (cand)
@@ -1543,7 +1549,7 @@ Only available in `emacs-lisp-mode'."
 Only available in `emacs-lisp-mode'."
   (if (derived-mode-p 'emacs-lisp-mode)
       (nerd-icons-ivy-rich-symbol-docstring
-       (nerd-icons-ivy-rich--counsel-imenu-symbol cand))
+       (nerd-icons-ivy-rich--imenu-symbol cand))
     ""))
 
 ;; Support `counsel-descbinds'
@@ -1802,7 +1808,7 @@ Support`counsel-ack', `counsel-ag', `counsel-pt' and `counsel-rg', etc."
 
 (defun nerd-icons-ivy-rich-symbol-icon (cand)
   "Display the symbol icon for CAND."
-  (let ((sym (intern (nerd-icons-ivy-rich--counsel-imenu-symbol cand))))
+  (let ((sym (intern (nerd-icons-ivy-rich--imenu-symbol cand))))
     (cond
      ((string-match-p "Packages?[:)]" cand)
       (nerd-icons-ivy-rich-icon
