@@ -1366,7 +1366,7 @@ Display the true name when the file is a symlink."
     ""))
 
 ;; Support `counsel-describe-face'
-(defun nerd-icons-ivy-rich-counsel-face-docstring (cand)
+(defun nerd-icons-ivy-rich-face-docstring (cand)
   "Return face's documentation for CAND."
   (nerd-icons-ivy-rich--truncate-docstring
    (documentation-property (intern-soft cand) 'face-documentation)))
@@ -1516,7 +1516,7 @@ t cl-type"
      ((fboundp symbol)
       (ivy-rich-counsel-function-docstring cand))
      ((facep symbol)
-      (nerd-icons-ivy-rich-counsel-face-docstring cand))
+      (nerd-icons-ivy-rich-face-docstring cand))
      ((and (boundp symbol) (not (keywordp symbol)))
       (ivy-rich-counsel-variable-docstring cand))
      (t ""))))
