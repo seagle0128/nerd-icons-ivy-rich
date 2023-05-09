@@ -1986,7 +1986,7 @@ Support`counsel-ack', `counsel-ag', `counsel-pt' and `counsel-rg', etc."
 (defun nerd-icons-ivy-rich-lsp-icon (_cand)
   "Display lsp icon."
   (nerd-icons-ivy-rich-icon
-   (nerd-icons-codicon "nf-md-rocket_launch" :face 'nerd-icons-lgreen)))
+   (nerd-icons-octicon "nf-oct-rocket" :face 'nerd-icons-lgreen)))
 
 
 ;;
