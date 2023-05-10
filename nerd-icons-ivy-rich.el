@@ -294,12 +294,12 @@
   "Face used to highlight general symbols.")
 
 (defface nerd-icons-ivy-rich-imenu-type-face
-  '((t (:inherit nerd-icons-ivy-rich-type-face :height 0.9)))
+  '((t (:inherit nerd-icons-ivy-rich-type-face)))
   "Face used for imenu type."
   :group 'nerd-icons-ivy-rich)
 
 (defface nerd-icons-ivy-rich-imenu-doc-face
-  '((t (:inherit nerd-icons-ivy-rich-doc-face :height 0.9)))
+  '((t (:inherit nerd-icons-ivy-rich-doc-face)))
   "Face used for imenu documentation."
   :group 'nerd-icons-ivy-rich)
 
