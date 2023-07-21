@@ -1867,7 +1867,7 @@ Support`counsel-ack', `counsel-ag', `counsel-pt' and `counsel-rg', etc."
 (defun nerd-icons-ivy-rich-tramp-icon (_cand)
   "Display the tramp icon."
   (nerd-icons-ivy-rich-icon
-   (nerd-icons-mdicon "remote")))
+   (nerd-icons-codicon "nf-cod-remote_explorer")))
 
 (defun nerd-icons-ivy-rich-git-branch-icon (_cand)
   "Display the git branch icon."
