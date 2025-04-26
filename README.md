@@ -1,6 +1,6 @@
 # nerd-icons-ivy-rich
 
-[![Build Status](https://github.com/seagle0128/nerd-icons-ivy-rich/workflows/CI/badge.svg)](https://github.com/seagle0128/nerd-icons-ivy-rich/actions)
+[![CI](https://github.com/seagle0128/nerd-icons-ivy-rich/actions/workflows/ci.yml/badge.svg)](https://github.com/seagle0128/nerd-icons-ivy-rich/actions/workflows/ci.yml)
 [![Release Tag](https://img.shields.io/github/tag/seagle0128/nerd-icons-ivy-rich.svg?label=Release)](https://github.com/seagle0128/nerd-icons-ivy-rich/releases)
 [![License](http://img.shields.io/:License-GPL3-blue.svg)](License)
 [![MELPA](https://melpa.org/packages/nerd-icons-ivy-rich-badge.svg)](https://melpa.org/#/nerd-icons-ivy-rich)
